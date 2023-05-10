@@ -1,0 +1,27 @@
+@use 'sass:color';
+
+// Svelte Colors!
+@use '@material/theme/index' as theme with (
+	$primary: #6750a4,
+	$secondary: #625b71,
+	$on-primary: #ffffff,
+	$on-secondary: #ffffff,
+	$background: #fffbfe,
+	$surface: #fffbfe,
+	$on-surface: #1c1b1f
+);
+
+html,
+body {
+	margin: 0;
+	background-color: theme.$background;
+	color: theme.$on-surface;
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+a {
+	color: #40b3ff;
+}
+a:visited {
+	color: color.scale(#40b3ff, $lightness: -35%);
+}
