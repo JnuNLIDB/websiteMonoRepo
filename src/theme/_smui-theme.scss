@@ -13,6 +13,7 @@
 
 html,
 body {
+	--mdc-theme-on-surface: theme.$on-surface;
 	margin: 0;
 	background-color: theme.$background;
 	color: theme.$on-surface;

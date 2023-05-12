@@ -1,13 +1,217 @@
-<h1>Hello World</h1>
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
-<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br />x<br
-/>x<br />x<br />x
+<Dialog
+  bind:open
+  aria-labelledby="default-focus-title"
+  aria-describedby="default-focus-content"
+>
+  <Title id="default-focus-title">模型选择</Title>
+  <Content id="default-focus-content">
+    选择你要使用的模型
+  </Content>
+  <Actions>
+    <Button
+      defaultAction
+      use={[InitialFocus]}
+      on:click={() => (model = 'openai')}
+    >
+      <Label>GPT-3.5</Label>
+    </Button>
+    <Button on:click={() => (model = 'glm')}>
+      <Label>GLM</Label>
+    </Button>
+  </Actions>
+</Dialog>
+
+<div class="chat-container">
+  <div class="display-container">
+    <div>
+      {#each qas as { question, answer }}
+        <div class="chat-log">
+          <Paper class="solo-paper" elevation={6}>
+            <Icon class="material-icons">person</Icon>
+            <div class="solo-input">{question}</div>
+          </Paper>
+        </div>
+        <div class="chat-log">
+          <Paper class="solo-paper" elevation={6}>
+            <Icon class="material-icons">smart_toy</Icon>
+            {#if answer === ''}
+              <CircularProgress style="height: 19px; width: 19px;" indeterminate />
+            {:else}
+              <div class="solo-input">{answer}</div>
+            {/if}
+          </Paper>
+        </div>
+      {/each}
+    </div>
+  </div>
+  <div class="solo-container">
+    <Paper class="solo-paper" elevation={6}>
+      <Icon class="material-icons">person</Icon>
+      <Input
+        bind:value
+        disabled={processing}
+        on:keydown={handleKeyDown}
+        placeholder="Ask The Database"
+        class="solo-input"
+      />
+    </Paper>
+    <Fab
+      on:click={() => (open = true)}
+      color="primary"
+      mini
+      class="solo-fab"
+    >
+      <Icon class="material-icons">settings</Icon>
+    </Fab>
+    <Fab
+      on:click={doSearch}
+      disabled={value === '' || processing}
+      color="primary"
+      mini
+      class="solo-fab"
+    >
+      <Icon class="material-icons">arrow_forward</Icon>
+    </Fab>
+  </div>
+</div>
+
+<script lang="ts">
+  import { Input } from '@smui/textfield';
+  import Paper from '@smui/paper';
+  import Fab from '@smui/fab';
+  import { Icon } from '@smui/common';
+  import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
+  import Button, { Label } from '@smui/button';
+  import CircularProgress from '@smui/circular-progress';
+
+  type QAPair = {
+    question: string;
+    answer: string;
+  };
+
+  let open = false;
+  let model = 'openai';
+  let processing = false;
+  let qas: QAPair[] = [];
+  qas.push({
+    question: 'What is the meaning of life?',
+    answer: '42',
+  });
+
+  let value = '';
+
+  function doSearch() {
+    processing = true;
+    qas.push({
+      question: value,
+      answer: '',
+    });
+    value = '';
+    qas[qas.length - 1].answer = '';
+    // GET http://127.0.0.1:8000/v1/nlidb
+    // Accept: application/json
+    // Content-Type: application/json
+    //
+    // {
+    //   "question": "Who have the most amount of quotes?",
+    //   "llm": "openai"
+    // }
+    fetch('http://127.0.0.1:8000/v1/nlidb', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        question: qas[qas.length - 1].question,
+        llm: model,
+      }),
+    })
+      .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+      .then((data) => {
+        if (data.status !== 200) {
+          throw new Error(data.body.detail);
+        }
+        qas[qas.length - 1].answer = data.body.detail;
+        processing = false;
+      })
+      .catch((error) => {
+        console.error(error);
+        qas[qas.length - 1].answer = 'Sorry, I don\'t know.';
+        processing = false;
+      });
+  }
+
+  function handleKeyDown(event: CustomEvent | KeyboardEvent) {
+    event = event as KeyboardEvent;
+    if (event.key === 'Enter') {
+      doSearch();
+    }
+  }
+</script>
+
+<style>
+    .chat-container {
+        display: flex;
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 0;
+        flex-direction: column;
+        height: 99%
+    }
+
+    .display-container {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-width: 0;
+        min-height: 0;
+        z-index: 0;
+        outline: 0;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+    .solo-container {
+        padding-top: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chat-log {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 12px 0;
+    }
+
+    * :global(.solo-paper) {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        max-width: 600px;
+        margin: 0 12px;
+        padding: 12px 12px;
+    }
+
+    * :global(.solo-paper > *) {
+        display: inline-block;
+        margin: 0 12px;
+    }
+
+    * :global(.solo-input) {
+        flex-grow: 1;
+        color: var(--mdc-theme-on-surface, #FFF);
+        white-space: pre-line
+    }
+
+    * :global(.solo-input::placeholder) {
+        color: var(--mdc-theme-on-surface, #FFF);
+        opacity: 0.6;
+    }
+    * :global(.solo-fab) {
+        margin-right: 4px;
+        flex-shrink: 0;
+    }
+</style>
