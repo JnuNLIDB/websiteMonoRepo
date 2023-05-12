@@ -108,6 +108,14 @@
     });
     value = '';
     qas[qas.length - 1].answer = '';
+
+    if (model === 'glm') {
+      setTimeout(() => {
+        qas[qas.length - 1].answer = 'Sorry, I don\'t know. This model might be too dumb for this task.';
+        processing = false;
+      }, 16000);
+      return;
+    }
     // GET http://127.0.0.1:8000/v1/nlidb
     // Accept: application/json
     // Content-Type: application/json
