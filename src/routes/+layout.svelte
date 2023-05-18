@@ -2,18 +2,18 @@
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import IconButton from '@smui/icon-button';
 	import List, { Graphic, Item, Separator, Subheader, Text } from '@smui/list';
-	import { AppContent, Content, Header, Scrim, Subtitle } from '@smui/drawer';
-	import Drawer from '@smui/drawer';
+	import Drawer, { AppContent, Content, Header, Scrim, Subtitle } from '@smui/drawer';
 	import { browser } from '$app/environment';
+	import { signIn, signOut } from '@auth/sveltekit/client';
 	import { page } from '$app/stores';
+	import Paper from '@smui/paper';
+	import Button, { Label } from '@smui/button';
 
 	let open = false;
 	let active = 'Inbox';
 
 	let dark_mode =
 		browser && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-	console.log($page.url.pathname)
 
 	function setActive(value: string) {
 		active = value;
@@ -22,75 +22,75 @@
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href={dark_mode ? '/smui-dark.css' : '/smui.css'} />
+	<link href={dark_mode ? '/smui-dark.css' : '/smui.css'} rel="stylesheet" />
 </svelte:head>
 
-<Drawer variant="modal" fixed={false} bind:open>
+<Drawer bind:open fixed={false} variant="modal">
 	<Header>
 		<div class="drawer-container">
-			<Title>Super Mail</Title>
+			<Title>Lorem Ipsum</Title>
 		</div>
-		<Subtitle>It's the best fake mail app drawer.</Subtitle>
+		<Subtitle>It's the best placeholder drawer.</Subtitle>
 	</Header>
 	<Content>
 		<List>
 			<Item
+				activated={active === 'Inbox'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Inbox')}
-				activated={active === 'Inbox'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">inbox</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">inbox</Graphic>
 				<Text>Inbox</Text>
 			</Item>
 			<Item
+				activated={active === 'Star'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Star')}
-				activated={active === 'Star'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">star</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">star</Graphic>
 				<Text>Star</Text>
 			</Item>
 			<Item
+				activated={active === 'Sent Mail'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Sent Mail')}
-				activated={active === 'Sent Mail'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">send</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">send</Graphic>
 				<Text>Sent Mail</Text>
 			</Item>
 			<Item
+				activated={active === 'Drafts'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Drafts')}
-				activated={active === 'Drafts'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">drafts</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">drafts</Graphic>
 				<Text>Drafts</Text>
 			</Item>
 
 			<Separator />
 			<Subheader tag="h6">Labels</Subheader>
 			<Item
+				activated={active === 'Family'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Family')}
-				activated={active === 'Family'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">bookmark</Graphic>
 				<Text>Family</Text>
 			</Item>
 			<Item
+				activated={active === 'Friends'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Friends')}
-				activated={active === 'Friends'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">bookmark</Graphic>
 				<Text>Friends</Text>
 			</Item>
 			<Item
+				activated={active === 'Work'}
 				href="javascript:void(0)"
 				on:click={() => setActive('Work')}
-				activated={active === 'Work'}
 			>
-				<Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
+				<Graphic aria-hidden="true" class="material-icons">bookmark</Graphic>
 				<Text>Work</Text>
 			</Item>
 		</List>
@@ -101,32 +101,64 @@
 	<main class="main-content">
 		<div class="flexy">
 			<div class="top-app-bar-container flexor">
-				<TopAppBar variant="static" dense color="primary">
+				<TopAppBar color="primary" dense variant="static">
 					<Row>
 						<Section>
 							<IconButton class="material-icons" on:click={() => (open = !open)}>menu</IconButton>
-							<Title>Flex Static</Title>
+							<Title>MingYu</Title>
 						</Section>
 						<Section align="end" toolbar>
 							<IconButton
-								class="material-icons"
 								aria-label="Toggle Light And Dark Mode"
+								class="material-icons"
 								on:click={() => (dark_mode = !dark_mode)}
-								>{dark_mode ? 'dark' : 'light'}_mode</IconButton
-							>
-							<IconButton class="material-icons" aria-label="Account">person</IconButton>
+								>{dark_mode ? 'dark' : 'light'}_mode
+							</IconButton>
+							<IconButton
+								aria-label="Account"
+								class="material-icons"
+								on:click={() => ($page.data.session ? signOut() : signIn())}
+								>person
+							</IconButton>
 						</Section>
 					</Row>
 				</TopAppBar>
+				{#if $page.data.session}
+					{#if $page.data.session.user.name !== 'Fox_white'}
 				<div class="flexor-content">
 					<slot />
 				</div>
+					{:else}
+						<div class="login-prompt">
+							<Paper color="primary" variant="outlined">
+								<Title>{$page.data.session.user.name} you don't have early access permission.</Title
+								>
+								<Content>Please check back later.</Content>
+							</Paper>
+						</div>
+					{/if}
+				{:else}
+					<div class="login-prompt">
+						<Paper color="primary" variant="outlined">
+							<Title>You are not logged in, please log in to continue</Title>
+							<Content>
+								<Button on:click={() => signIn()}>
+									<Label>Login</Label>
+								</Button>
+							</Content>
+						</Paper>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</main>
 </AppContent>
 
 <style>
+	.login-prompt {
+		margin: 16px;
+	}
+
 	.drawer-container {
 		margin-top: 12px;
 	}
