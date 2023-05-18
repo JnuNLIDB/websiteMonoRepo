@@ -6,6 +6,8 @@
 	import Dialog, { Actions, Content, InitialFocus, Title } from '@smui/dialog';
 	import Button, { Label } from '@smui/button';
 	import CircularProgress from '@smui/circular-progress';
+	import { sha256 } from "js-sha256";
+	import { page } from '$app/stores';
 
 	type QAPair = {
 		question: string;
@@ -48,14 +50,18 @@
 		//   "question": "Who have the most amount of quotes?",
 		//   "llm": "openai"
 		// }
-		fetch('http://127.0.0.1:8000/v1/nlidb', {
+		const time = new Date().getTime();
+		const api_key = $page.data.session.user.name
+		fetch('/api/nlidb', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				question: qas[qas.length - 1].question,
-				llm: model
+				llm: model,
+				now: time,
+				hash: sha256(api_key + time.toString())
 			})
 		})
 			.then((r) => r.json().then((data) => ({ status: r.status, body: data })))

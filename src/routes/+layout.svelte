@@ -124,7 +124,7 @@
 					</Row>
 				</TopAppBar>
 				{#if $page.data.session}
-					{#if $page.data.session.user.name !== 'Fox_white'}
+					{#if $page.data.session.user.name === 'Fox_white'}
 				<div class="flexor-content">
 					<slot />
 				</div>
