@@ -8,10 +8,5 @@ export default defineConfig({
 	},
 	ssr: {
 		noExternal: [/^@smui(?:-extra)?\//]
-	},
-	build: {
-		rollupOptions: {
-			external: [/^@smui(?:-extra)?\//]
-		}
 	}
 });
