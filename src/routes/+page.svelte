@@ -6,7 +6,7 @@
 	import Dialog, { Actions, Content, InitialFocus, Title } from '@smui/dialog';
 	import Button, { Label } from '@smui/button';
 	import CircularProgress from '@smui/circular-progress';
-	import { sha256 } from "js-sha256";
+	import { sha256 } from 'js-sha256';
 	import { page } from '$app/stores';
 
 	type QAPair = {
@@ -51,7 +51,7 @@
 		//   "llm": "openai"
 		// }
 		const time = new Date().getTime();
-		const api_key = $page.data.session.user.name
+		const api_key = $page.data.session.user.name;
 		fetch('/api/nlidb', {
 			method: 'POST',
 			headers: {

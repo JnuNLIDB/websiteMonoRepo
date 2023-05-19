@@ -2498,7 +2498,7 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
             }
           }
         )}
-				${$page.data.session ? `${$page.data.session.user.name === "Fox_white" ? `<div class="flexor-content svelte-1e0ltwq">${slots.default ? slots.default({}) : ``}</div>` : `<div class="login-prompt svelte-1e0ltwq">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
+				${$page.data.session ? `${$page.data.session.user.name === "Fox_white" || $page.data.session.user.name === "Calsonlyn" ? `<div class="flexor-content svelte-1e0ltwq">${slots.default ? slots.default({}) : ``}</div>` : `<div class="login-prompt svelte-1e0ltwq">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
           default: () => {
             return `${validate_component(Title, "Title").$$render($$result, {}, {}, {
               default: () => {
@@ -2541,4 +2541,4 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
 });
 
 export { Layout as default };
-//# sourceMappingURL=_layout.svelte-c1de3d33.js.map
+//# sourceMappingURL=_layout.svelte-f609fdcd.js.map

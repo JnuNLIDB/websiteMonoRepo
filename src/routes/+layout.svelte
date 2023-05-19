@@ -124,10 +124,10 @@
 					</Row>
 				</TopAppBar>
 				{#if $page.data.session}
-					{#if $page.data.session.user.name === 'Fox_white'}
-				<div class="flexor-content">
-					<slot />
-				</div>
+					{#if $page.data.session.user.name === 'Fox_white' || $page.data.session.user.name === 'Calsonlyn'}
+						<div class="flexor-content">
+							<slot />
+						</div>
 					{:else}
 						<div class="login-prompt">
 							<Paper color="primary" variant="outlined">
