@@ -170,10 +170,10 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1wtfr1y"
+  version_hash: "1osw8vr"
 };
 function get_hooks() {
-  return import('./hooks.server-f08e366c.js');
+  return import('./hooks.server-30638934.js');
 }
 
 function negotiate(accept, types) {
@@ -3536,4 +3536,4 @@ class Server {
 }
 
 export { DEV as D, Server as S, private_env as p };
-//# sourceMappingURL=index-5608ce79.js.map
+//# sourceMappingURL=index-36e74013.js.map

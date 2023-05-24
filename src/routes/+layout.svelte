@@ -9,6 +9,8 @@
 	import Paper from '@smui/paper';
 	import Button, { Label } from '@smui/button';
 
+	const allowed_name_list = ["Fox_white25", "Calsonlyn", "DUuOOO", "Vision-ovo"]
+
 	let open = false;
 	let active = 'Inbox';
 
@@ -124,7 +126,7 @@
 					</Row>
 				</TopAppBar>
 				{#if $page.data.session}
-					{#if $page.data.session.user.name === 'Fox_white' || $page.data.session.user.name === 'Calsonlyn'}
+					{#if allowed_name_list.includes($page.data.session.user.name)}
 						<div class="flexor-content">
 							<slot />
 						</div>
