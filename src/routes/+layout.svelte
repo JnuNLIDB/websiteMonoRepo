@@ -9,7 +9,10 @@
 	import Paper from '@smui/paper';
 	import Button, { Label } from '@smui/button';
 
-	const allowed_name_list = ["Fox_white", "Calsonlyn", "DUuOOO", "Wang Tong", "Starscreamy"]
+	const allowed_name_list = [
+		"Fox_white", "Calsonlyn", "DUuOOO",
+		"Wang Tong", "Starscreamy", "superjamesgit"
+	]
 
 	let open = false;
 	let active = 'Inbox';
