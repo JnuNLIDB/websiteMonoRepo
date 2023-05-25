@@ -2170,7 +2170,14 @@ const css = {
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $page, $$unsubscribe_page;
   $$unsubscribe_page = subscribe(page, (value) => $page = value);
-  const allowed_name_list = ["Fox_white", "Calsonlyn", "DUuOOO", "Wang Tong", "Starscreamy"];
+  const allowed_name_list = [
+    "Fox_white",
+    "Calsonlyn",
+    "DUuOOO",
+    "Wang Tong",
+    "Starscreamy",
+    "superjamesgit"
+  ];
   let open = false;
   let active = "Inbox";
   $$result.css.add(css);
@@ -2542,4 +2549,4 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
 });
 
 export { Layout as default };
-//# sourceMappingURL=_layout.svelte-0aca8fe2.js.map
+//# sourceMappingURL=_layout.svelte-913ef6e8.js.map
