@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
+	import BottomAppBar from '@smui-extra/bottom-app-bar';
 	import IconButton from '@smui/icon-button';
 	import List, { Graphic, Item, Separator, Subheader, Text } from '@smui/list';
 	import Drawer, { AppContent, Content, Header, Scrim, Subtitle } from '@smui/drawer';
@@ -157,9 +158,24 @@
 			</div>
 		</div>
 	</main>
+	<Paper color="primary" square variant="unelevated">
+		<Content>
+			<div class="link">
+				<a class="link" href="https://beian.miit.gov.cn/">粤ICP备 2023058875号</a>
+			</div>
+		</Content>
+	</Paper>
 </AppContent>
 
 <style>
+	.link {
+		text-decoration: none;
+		color: var(--mdc-theme-on-surface);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
 	.login-prompt {
 		margin: 16px;
 	}

@@ -1195,6 +1195,69 @@ function classAdderBuilder(props) {
     }
   });
 }
+const Paper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+  let $$restProps = compute_rest_props($$props, ["use", "class", "variant", "square", "color", "elevation", "transition", "getElement"]);
+  forwardEventsBuilder(get_current_component());
+  let { use = [] } = $$props;
+  let { class: className = "" } = $$props;
+  let { variant = "raised" } = $$props;
+  let { square = false } = $$props;
+  let { color = "default" } = $$props;
+  let { elevation = 1 } = $$props;
+  let { transition = false } = $$props;
+  let element;
+  function getElement() {
+    return element;
+  }
+  if ($$props.use === void 0 && $$bindings.use && use !== void 0)
+    $$bindings.use(use);
+  if ($$props.class === void 0 && $$bindings.class && className !== void 0)
+    $$bindings.class(className);
+  if ($$props.variant === void 0 && $$bindings.variant && variant !== void 0)
+    $$bindings.variant(variant);
+  if ($$props.square === void 0 && $$bindings.square && square !== void 0)
+    $$bindings.square(square);
+  if ($$props.color === void 0 && $$bindings.color && color !== void 0)
+    $$bindings.color(color);
+  if ($$props.elevation === void 0 && $$bindings.elevation && elevation !== void 0)
+    $$bindings.elevation(elevation);
+  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0)
+    $$bindings.transition(transition);
+  if ($$props.getElement === void 0 && $$bindings.getElement && getElement !== void 0)
+    $$bindings.getElement(getElement);
+  return `<div${spread(
+    [
+      {
+        class: escape_attribute_value(classMap({
+          [className]: true,
+          "smui-paper": true,
+          "smui-paper--raised": variant === "raised",
+          "smui-paper--unelevated": variant === "unelevated",
+          "smui-paper--outlined": variant === "outlined",
+          ["smui-paper--elevation-z" + elevation]: elevation !== 0 && variant === "raised",
+          "smui-paper--rounded": !square,
+          ["smui-paper--color-" + color]: color !== "default",
+          "smui-paper-transition": transition
+        }))
+      },
+      escape_object($$restProps)
+    ],
+    {}
+  )}${add_attribute("this", element, 0)}>${slots.default ? slots.default({}) : ``}
+</div>`;
+});
+classAdderBuilder({
+  class: "smui-paper__content",
+  tag: "div"
+});
+classAdderBuilder({
+  class: "smui-paper__title",
+  tag: "h5"
+});
+classAdderBuilder({
+  class: "smui-paper__subtitle",
+  tag: "h6"
+});
 const { applyPassive } = events;
 const { matches } = ponyfill;
 function Ripple(node, { ripple = true, surface = false, unbounded = false, disabled = false, color, active, rippleElement, eventTarget, activeTarget, addClass = (className) => node.classList.add(className), removeClass = (className) => node.classList.remove(className), addStyle = (name, value) => node.style.setProperty(name, value), initPromise = Promise.resolve() } = {}) {
@@ -1323,69 +1386,6 @@ function Ripple(node, { ripple = true, surface = false, unbounded = false, disab
     }
   };
 }
-const Paper = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let $$restProps = compute_rest_props($$props, ["use", "class", "variant", "square", "color", "elevation", "transition", "getElement"]);
-  forwardEventsBuilder(get_current_component());
-  let { use = [] } = $$props;
-  let { class: className = "" } = $$props;
-  let { variant = "raised" } = $$props;
-  let { square = false } = $$props;
-  let { color = "default" } = $$props;
-  let { elevation = 1 } = $$props;
-  let { transition = false } = $$props;
-  let element;
-  function getElement() {
-    return element;
-  }
-  if ($$props.use === void 0 && $$bindings.use && use !== void 0)
-    $$bindings.use(use);
-  if ($$props.class === void 0 && $$bindings.class && className !== void 0)
-    $$bindings.class(className);
-  if ($$props.variant === void 0 && $$bindings.variant && variant !== void 0)
-    $$bindings.variant(variant);
-  if ($$props.square === void 0 && $$bindings.square && square !== void 0)
-    $$bindings.square(square);
-  if ($$props.color === void 0 && $$bindings.color && color !== void 0)
-    $$bindings.color(color);
-  if ($$props.elevation === void 0 && $$bindings.elevation && elevation !== void 0)
-    $$bindings.elevation(elevation);
-  if ($$props.transition === void 0 && $$bindings.transition && transition !== void 0)
-    $$bindings.transition(transition);
-  if ($$props.getElement === void 0 && $$bindings.getElement && getElement !== void 0)
-    $$bindings.getElement(getElement);
-  return `<div${spread(
-    [
-      {
-        class: escape_attribute_value(classMap({
-          [className]: true,
-          "smui-paper": true,
-          "smui-paper--raised": variant === "raised",
-          "smui-paper--unelevated": variant === "unelevated",
-          "smui-paper--outlined": variant === "outlined",
-          ["smui-paper--elevation-z" + elevation]: elevation !== 0 && variant === "raised",
-          "smui-paper--rounded": !square,
-          ["smui-paper--color-" + color]: color !== "default",
-          "smui-paper-transition": transition
-        }))
-      },
-      escape_object($$restProps)
-    ],
-    {}
-  )}${add_attribute("this", element, 0)}>${slots.default ? slots.default({}) : ``}
-</div>`;
-});
-classAdderBuilder({
-  class: "smui-paper__content",
-  tag: "div"
-});
-classAdderBuilder({
-  class: "smui-paper__title",
-  tag: "h5"
-});
-classAdderBuilder({
-  class: "smui-paper__subtitle",
-  tag: "h6"
-});
 const { Object: Object_1 } = globals;
 const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let actionProp;
@@ -1567,4 +1567,4 @@ const Button = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 });
 
 export { Button as B, CommonLabel as C, MDCFoundation as M, Paper as P, Ripple as R, SmuiElement as S, __extends as _, __assign as a, classMap as b, classAdderBuilder as c, forwardEventsBuilder as f };
-//# sourceMappingURL=Button-5aeafd7c.js.map
+//# sourceMappingURL=Button-6dadbd86.js.map

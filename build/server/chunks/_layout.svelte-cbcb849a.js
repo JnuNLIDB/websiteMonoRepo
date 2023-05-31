@@ -1,6 +1,6 @@
 import { c as create_ssr_component, a as subscribe, b as add_attribute, v as validate_component, e as escape, d as compute_rest_props, g as get_current_component, f as spread, h as escape_attribute_value, i as escape_object, s as setContext, j as getContext, o as onDestroy, m as missing_component, k as globals } from './index3-75d1bdbb.js';
 import { r as readable } from './index2-d3763b6a.js';
-import { _ as __extends, a as __assign, M as MDCFoundation, c as classAdderBuilder, P as Paper, B as Button, C as CommonLabel, f as forwardEventsBuilder, b as classMap, R as Ripple, S as SmuiElement } from './Button-5aeafd7c.js';
+import { _ as __extends, a as __assign, M as MDCFoundation, c as classAdderBuilder, P as Paper, B as Button, C as CommonLabel, f as forwardEventsBuilder, b as classMap, R as Ripple, S as SmuiElement } from './Button-6dadbd86.js';
 import { p as page } from './stores-39db615e.js';
 
 /**
@@ -2164,7 +2164,7 @@ const Scrim = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return $$rendered;
 });
 const css = {
-  code: ".login-prompt.svelte-1e0ltwq{margin:16px}.drawer-container.svelte-1e0ltwq{margin-top:12px}.top-app-bar-container.svelte-1e0ltwq{width:100%;overflow:auto;display:inline-block}@media(max-width: 480px){.top-app-bar-container.svelte-1e0ltwq{margin-right:0}}.flexy.svelte-1e0ltwq{display:flex;flex-wrap:wrap;height:100vh}.flexor.svelte-1e0ltwq{display:inline-flex;flex-direction:column}.flexor-content.svelte-1e0ltwq{flex-basis:0;height:0;flex-grow:1;overflow:auto}",
+  code: ".link.svelte-17i9w6n{text-decoration:none;color:var(--mdc-theme-on-surface);display:flex;align-items:center;justify-content:center}.login-prompt.svelte-17i9w6n{margin:16px}.drawer-container.svelte-17i9w6n{margin-top:12px}.top-app-bar-container.svelte-17i9w6n{width:100%;overflow:auto;display:inline-block}@media(max-width: 480px){.top-app-bar-container.svelte-17i9w6n{margin-right:0}}.flexy.svelte-17i9w6n{display:flex;flex-wrap:wrap;height:100vh}.flexor.svelte-17i9w6n{display:inline-flex;flex-direction:column}.flexor-content.svelte-17i9w6n{flex-basis:0;height:0;flex-grow:1;overflow:auto}",
   map: null
 };
 const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -2200,7 +2200,7 @@ ${validate_component(Drawer, "Drawer").$$render(
         default: () => {
           return `${validate_component(Header, "Header").$$render($$result, {}, {}, {
             default: () => {
-              return `<div class="drawer-container svelte-1e0ltwq">${validate_component(Title, "Title").$$render($$result, {}, {}, {
+              return `<div class="drawer-container svelte-17i9w6n">${validate_component(Title, "Title").$$render($$result, {}, {}, {
                 default: () => {
                   return `Lorem Ipsum`;
                 }
@@ -2443,7 +2443,7 @@ ${validate_component(Drawer, "Drawer").$$render(
 ${validate_component(Scrim, "Scrim").$$render($$result, { fixed: false }, {}, {})}
 ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-content" }, {}, {
       default: () => {
-        return `<main class="main-content"><div class="flexy svelte-1e0ltwq"><div class="top-app-bar-container flexor svelte-1e0ltwq">${validate_component(TopAppBar, "TopAppBar").$$render(
+        return `<main class="main-content"><div class="flexy svelte-17i9w6n"><div class="top-app-bar-container flexor svelte-17i9w6n">${validate_component(TopAppBar, "TopAppBar").$$render(
           $$result,
           {
             color: "primary",
@@ -2506,7 +2506,7 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
             }
           }
         )}
-				${$page.data.session ? `${allowed_name_list.includes($page.data.session.user.name) ? `<div class="flexor-content svelte-1e0ltwq">${slots.default ? slots.default({}) : ``}</div>` : `<div class="login-prompt svelte-1e0ltwq">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
+				${$page.data.session ? `${allowed_name_list.includes($page.data.session.user.name) ? `<div class="flexor-content svelte-17i9w6n">${slots.default ? slots.default({}) : ``}</div>` : `<div class="login-prompt svelte-17i9w6n">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
           default: () => {
             return `${validate_component(Title, "Title").$$render($$result, {}, {}, {
               default: () => {
@@ -2519,7 +2519,7 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
               }
             })}`;
           }
-        })}</div>`}` : `<div class="login-prompt svelte-1e0ltwq">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
+        })}</div>`}` : `<div class="login-prompt svelte-17i9w6n">${validate_component(Paper, "Paper").$$render($$result, { color: "primary", variant: "outlined" }, {}, {
           default: () => {
             return `${validate_component(Title, "Title").$$render($$result, {}, {}, {
               default: () => {
@@ -2540,7 +2540,25 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
               }
             })}`;
           }
-        })}</div>`}</div></div></main>`;
+        })}</div>`}</div></div></main>
+	${validate_component(Paper, "Paper").$$render(
+          $$result,
+          {
+            color: "primary",
+            square: true,
+            variant: "unelevated"
+          },
+          {},
+          {
+            default: () => {
+              return `${validate_component(Content, "Content").$$render($$result, {}, {}, {
+                default: () => {
+                  return `<div class="link svelte-17i9w6n"><a class="link svelte-17i9w6n" href="https://beian.miit.gov.cn/">粤ICP备 2023058875号</a></div>`;
+                }
+              })}`;
+            }
+          }
+        )}`;
       }
     })}`;
   } while (!$$settled);
@@ -2549,4 +2567,4 @@ ${validate_component(AppContent, "AppContent").$$render($$result, { class: "app-
 });
 
 export { Layout as default };
-//# sourceMappingURL=_layout.svelte-913ef6e8.js.map
+//# sourceMappingURL=_layout.svelte-cbcb849a.js.map

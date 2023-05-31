@@ -33,6 +33,9 @@ devDependencies:
   '@playwright/test':
     specifier: ^1.28.1
     version: 1.33.0
+  '@smui-extra/bottom-app-bar':
+    specifier: 7.0.0-beta.8
+    version: 7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4)
   '@smui/button':
     specifier: 7.0.0-beta.8
     version: 7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4)
@@ -883,6 +886,19 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.21.5
+    dev: true
+
+  /@smui-extra/bottom-app-bar@7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4):
+    resolution: {integrity: sha512-lh/f0ef4rzs7OIb473uh8Mj45YJeNGfJIKFRyg9+EvWleu3R13Ze0OHWFFbVVWnX09X6ktb3kPUHrZDJAt+6PA==}
+    dependencies:
+      '@material/feature-targeting': 14.0.0
+      '@material/theme': 14.0.0
+      '@smui/common': 7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4)
+      '@smui/paper': 7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4)
+      svelte2tsx: 0.6.14(svelte@3.59.1)(typescript@5.0.4)
+    transitivePeerDependencies:
+      - svelte
+      - typescript
     dev: true
 
   /@smui/button@7.0.0-beta.8(svelte@3.59.1)(typescript@5.0.4):

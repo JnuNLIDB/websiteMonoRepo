@@ -1,4 +1,4 @@
-import { p as private_env, D as DEV } from './index-ea200e67.js';
+import { p as private_env, D as DEV } from './index-eac48114.js';
 import { Auth } from '@auth/core';
 import GitHub from '@auth/core/providers/github';
 import './index3-75d1bdbb.js';
@@ -60,4 +60,4 @@ const handle = SvelteKitAuth({
 });
 
 export { handle };
-//# sourceMappingURL=hooks.server-3167b449.js.map
+//# sourceMappingURL=hooks.server-b91e6035.js.map
