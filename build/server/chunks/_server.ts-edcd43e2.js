@@ -1,6 +1,7 @@
 import { j as json } from './index-36410280.js';
 import { p as prisma } from './prisma-68db7c66.js';
 import { verifyRegistrationResponse } from '@simplewebauthn/server';
+import { O as ORIGIN, R as RPID } from './private-3a9eb584.js';
 import '@prisma/client';
 
 const POST = async ({ params, request, cookies }) => {
@@ -26,8 +27,8 @@ const POST = async ({ params, request, cookies }) => {
     verification = await verifyRegistrationResponse({
       response: body,
       expectedChallenge,
-      expectedOrigin: "http://localhost:5173",
-      expectedRPID: "localhost"
+      expectedOrigin: ORIGIN,
+      expectedRPID: RPID
     });
   } catch (error) {
     console.error(error);
@@ -67,4 +68,4 @@ const POST = async ({ params, request, cookies }) => {
 };
 
 export { POST };
-//# sourceMappingURL=_server.ts-1d16e28e.js.map
+//# sourceMappingURL=_server.ts-edcd43e2.js.map

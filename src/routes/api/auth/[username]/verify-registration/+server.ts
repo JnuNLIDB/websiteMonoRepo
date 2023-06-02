@@ -2,6 +2,7 @@ import type { RequestEvent, RequestHandler } from './$types';
 import { json } from '@sveltejs/kit';
 import prisma from "$lib/prisma";
 import { verifyRegistrationResponse } from "@simplewebauthn/server";
+import { RPID, ORIGIN } from "$env/static/private";
 
 export const POST: RequestHandler = async ({ params, request, cookies }: RequestEvent) => {
   const user_name: string = params.username;
@@ -29,8 +30,8 @@ export const POST: RequestHandler = async ({ params, request, cookies }: Request
     verification = await verifyRegistrationResponse({
       response: body,
       expectedChallenge,
-      expectedOrigin: "http://localhost:5173",
-      expectedRPID: "localhost",
+      expectedOrigin: ORIGIN,
+      expectedRPID: RPID,
     });
   } catch (error) {
     console.error(error);
