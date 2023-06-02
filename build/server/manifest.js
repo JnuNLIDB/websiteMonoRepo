@@ -4,11 +4,11 @@ const manifest = {
 	assets: new Set(["favicon.png","robots.txt","smui-dark.css","smui.css"]),
 	mimeTypes: {".png":"image/png",".txt":"text/plain",".css":"text/css"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.4873c30c.js","app":"_app/immutable/entry/app.8100c578.js","imports":["_app/immutable/entry/start.4873c30c.js","_app/immutable/chunks/index.88c7808c.js","_app/immutable/chunks/singletons.22e29a47.js","_app/immutable/chunks/index.b625118a.js","_app/immutable/entry/app.8100c578.js","_app/immutable/chunks/index.88c7808c.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.c856a412.js","app":"_app/immutable/entry/app.8653a011.js","imports":["_app/immutable/entry/start.c856a412.js","_app/immutable/chunks/index.88c7808c.js","_app/immutable/chunks/singletons.5f9eb6bf.js","_app/immutable/chunks/index.b625118a.js","_app/immutable/entry/app.8653a011.js","_app/immutable/chunks/index.88c7808c.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
 			() => import('./chunks/0-0f9d2bf4.js'),
-			() => import('./chunks/1-ed491b56.js'),
-			() => import('./chunks/2-5e704a83.js')
+			() => import('./chunks/1-4752c6c2.js'),
+			() => import('./chunks/2-77e119ae.js')
 		],
 		routes: [
 			{
@@ -37,21 +37,21 @@ const manifest = {
 				pattern: /^\/api\/auth\/([^/]+?)\/generate-registration-options\/?$/,
 				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
 				page: null,
-				endpoint: () => import('./chunks/_server.ts-00e32278.js')
+				endpoint: () => import('./chunks/_server.ts-f53f64a2.js')
 			},
 			{
 				id: "/api/auth/[username]/verify-authentication",
 				pattern: /^\/api\/auth\/([^/]+?)\/verify-authentication\/?$/,
 				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
 				page: null,
-				endpoint: () => import('./chunks/_server.ts-ecc57e49.js')
+				endpoint: () => import('./chunks/_server.ts-fd50583b.js')
 			},
 			{
 				id: "/api/auth/[username]/verify-registration",
 				pattern: /^\/api\/auth\/([^/]+?)\/verify-registration\/?$/,
 				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
 				page: null,
-				endpoint: () => import('./chunks/_server.ts-edcd43e2.js')
+				endpoint: () => import('./chunks/_server.ts-511fb179.js')
 			},
 			{
 				id: "/api/nlidb",

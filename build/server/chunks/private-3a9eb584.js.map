@@ -1,1 +1,0 @@
-{"version":3,"file":"private-3a9eb584.js","sources":["../../../.svelte-kit/adapter-node/chunks/private.js"],"sourcesContent":["const RPID = \"localhost\";\nconst ORIGIN = \"http://localhost:5173\";\nexport {\n  ORIGIN as O,\n  RPID as R\n};\n"],"names":[],"mappings":"AAAK,MAAC,IAAI,GAAG,YAAY;AACpB,MAAC,MAAM,GAAG;;;;"}

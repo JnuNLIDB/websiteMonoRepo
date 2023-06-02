@@ -1,0 +1,1 @@
+{"version":3,"file":"private-f3ca3244.js","sources":["../../../.svelte-kit/adapter-node/chunks/private.js"],"sourcesContent":["const RPID = \"mingyuaigc\";\nconst ORIGIN = \"https://www.mingyuaigc.com\";\nexport {\n  ORIGIN as O,\n  RPID as R\n};\n"],"names":[],"mappings":"AAAK,MAAC,IAAI,GAAG,aAAa;AACrB,MAAC,MAAM,GAAG;;;;"}

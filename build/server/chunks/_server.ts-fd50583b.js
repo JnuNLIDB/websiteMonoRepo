@@ -1,7 +1,7 @@
 import { j as json } from './index-36410280.js';
 import { p as prisma } from './prisma-68db7c66.js';
-import { verifyRegistrationResponse } from '@simplewebauthn/server';
-import { O as ORIGIN, R as RPID } from './private-3a9eb584.js';
+import { verifyAuthenticationResponse } from '@simplewebauthn/server';
+import { O as ORIGIN, R as RPID } from './private-f3ca3244.js';
 import '@prisma/client';
 
 const POST = async ({ params, request, cookies }) => {
@@ -22,19 +22,33 @@ const POST = async ({ params, request, cookies }) => {
   if (!expectedChallenge) {
     return new Response(JSON.stringify({ error: "Invalid challenge" }), { status: 400 });
   }
+  const authenticator = await prisma.authenticator.findFirst({
+    where: {
+      userID: user.id,
+      credentialID: Buffer.from(body.id, "base64")
+    }
+  });
+  if (!authenticator) {
+    return new Response(JSON.stringify({ error: "Invalid authenticator" }), { status: 400 });
+  }
   let verification;
   try {
-    verification = await verifyRegistrationResponse({
+    verification = await verifyAuthenticationResponse({
       response: body,
       expectedChallenge,
       expectedOrigin: ORIGIN,
-      expectedRPID: RPID
+      expectedRPID: RPID,
+      authenticator: {
+        credentialPublicKey: authenticator.credentialPublicKey,
+        credentialID: authenticator.credentialPublicKey,
+        counter: authenticator.counter
+      }
     });
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ error }), { status: 400 });
+    return new Response(JSON.stringify({ error: error.toString() }), { status: 400 });
   }
-  if (verification.registrationInfo && verification.verified) {
+  if (verification.authenticationInfo && verification.verified) {
     const session_id = await prisma.session.create({
       data: {
         user: {
@@ -53,14 +67,12 @@ const POST = async ({ params, request, cookies }) => {
       httpOnly: true,
       sameSite: "strict"
     });
-    await prisma.authenticator.create({
+    await prisma.authenticator.update({
+      where: {
+        credentialID: authenticator.credentialID
+      },
       data: {
-        credentialPublicKey: Buffer.from(verification.registrationInfo.credentialPublicKey),
-        credentialID: Buffer.from(verification.registrationInfo.credentialID),
-        counter: verification.registrationInfo.counter,
-        credentialDeviceType: verification.registrationInfo.credentialDeviceType,
-        credentialBackedUp: verification.registrationInfo.credentialBackedUp,
-        userID: user.id
+        counter: verification.authenticationInfo.newCounter
       }
     });
   }
@@ -68,4 +80,4 @@ const POST = async ({ params, request, cookies }) => {
 };
 
 export { POST };
-//# sourceMappingURL=_server.ts-edcd43e2.js.map
+//# sourceMappingURL=_server.ts-fd50583b.js.map
