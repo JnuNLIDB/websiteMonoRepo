@@ -8,8 +8,27 @@
 	$on-secondary: #332d41,
 	$background: #1c1b1f,
 	$surface: #1c1b1f,
-	$on-surface: #e6e1e5
+	$on-surface: #e6e1e5,
+	$error: #F2B8B5,
+	$on-error: #601410,
 );
+
+@use '@smui/snackbar/style' as smui-snackabar;
+// See https://github.com/material-components/material-components-web/tree/v14.0.0/packages/mdc-snackbar
+@use '@material/snackbar/mixins' as snackbar;
+// See https://github.com/material-components/material-components-web/tree/v14.0.0/packages/mdc-theme
+@use '@material/linear-progress/mixins' as linear-progress;
+
+.mdc-snackbar.demo-error {
+	@include snackbar.fill-color(theme.$error);
+	@include snackbar.label-ink-color(theme.$on-error);
+}
+
+
+.main-bar {
+	@include linear-progress.bar-color(theme.$on-secondary);
+	@include linear-progress.buffer-color(theme.$secondary);
+}
 
 html,
 body {

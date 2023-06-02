@@ -4,11 +4,11 @@ const manifest = {
 	assets: new Set(["favicon.png","robots.txt","smui-dark.css","smui.css"]),
 	mimeTypes: {".png":"image/png",".txt":"text/plain",".css":"text/css"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.32a40522.js","app":"_app/immutable/entry/app.643b2821.js","imports":["_app/immutable/entry/start.32a40522.js","_app/immutable/chunks/index.dfaa5e6f.js","_app/immutable/chunks/singletons.a7ed2851.js","_app/immutable/entry/app.643b2821.js","_app/immutable/chunks/index.dfaa5e6f.js"],"stylesheets":[],"fonts":[]},
+		client: {"start":"_app/immutable/entry/start.850c6d1b.js","app":"_app/immutable/entry/app.ed985925.js","imports":["_app/immutable/entry/start.850c6d1b.js","_app/immutable/chunks/index.88c7808c.js","_app/immutable/chunks/singletons.6fd81512.js","_app/immutable/chunks/index.b625118a.js","_app/immutable/entry/app.ed985925.js","_app/immutable/chunks/index.88c7808c.js"],"stylesheets":[],"fonts":[]},
 		nodes: [
-			() => import('./chunks/0-fb597f71.js'),
-			() => import('./chunks/1-451430f6.js'),
-			() => import('./chunks/2-475e12e5.js')
+			() => import('./chunks/0-0f9d2bf4.js'),
+			() => import('./chunks/1-d07230c7.js'),
+			() => import('./chunks/2-6da75b1f.js')
 		],
 		routes: [
 			{
@@ -19,11 +19,46 @@ const manifest = {
 				endpoint: null
 			},
 			{
+				id: "/api/auth/logout",
+				pattern: /^\/api\/auth\/logout\/?$/,
+				params: [],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-9c6cceb8.js')
+			},
+			{
+				id: "/api/auth/[username]/generate-auth-options",
+				pattern: /^\/api\/auth\/([^/]+?)\/generate-auth-options\/?$/,
+				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-aac3fd5d.js')
+			},
+			{
+				id: "/api/auth/[username]/generate-registration-options",
+				pattern: /^\/api\/auth\/([^/]+?)\/generate-registration-options\/?$/,
+				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-00e32278.js')
+			},
+			{
+				id: "/api/auth/[username]/verify-authentication",
+				pattern: /^\/api\/auth\/([^/]+?)\/verify-authentication\/?$/,
+				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-ecc57e49.js')
+			},
+			{
+				id: "/api/auth/[username]/verify-registration",
+				pattern: /^\/api\/auth\/([^/]+?)\/verify-registration\/?$/,
+				params: [{"name":"username","optional":false,"rest":false,"chained":false}],
+				page: null,
+				endpoint: () => import('./chunks/_server.ts-1d16e28e.js')
+			},
+			{
 				id: "/api/nlidb",
 				pattern: /^\/api\/nlidb\/?$/,
 				params: [],
 				page: null,
-				endpoint: () => import('./chunks/_server.ts-81b5d04d.js')
+				endpoint: () => import('./chunks/_server.ts-ee281c7a.js')
 			}
 		],
 		matchers: async () => {

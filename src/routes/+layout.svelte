@@ -1,14 +1,26 @@
 <script lang="ts">
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
-	import BottomAppBar from '@smui-extra/bottom-app-bar';
 	import IconButton from '@smui/icon-button';
 	import List, { Graphic, Item, Separator, Subheader, Text } from '@smui/list';
 	import Drawer, { AppContent, Content, Header, Scrim, Subtitle } from '@smui/drawer';
 	import { browser } from '$app/environment';
-	import { signIn, signOut } from '@auth/sveltekit/client';
-	import { page } from '$app/stores';
 	import Paper from '@smui/paper';
 	import Button, { Label } from '@smui/button';
+	import type { LayoutData } from './$types'
+	import { startAuthentication, startRegistration } from "@simplewebauthn/browser";
+	import Snackbar, {
+		Label as SnackbarLabel,
+		Actions
+	} from '@smui/snackbar';
+	import LinearProgress from '@smui/linear-progress';
+	import Textfield from "@smui/textfield";
+
+	let snackbarError: Snackbar;
+
+	export let data: LayoutData;
+
+	console.log('layout data', data);
+
 
 	const allowed_name_list = [
 		"Fox_white", "Calsonlyn", "DUuOOO",
@@ -17,6 +29,9 @@
 
 	let open = false;
 	let active = 'Inbox';
+	let error = ''
+	let closed = true;
+	let username = '';
 
 	let dark_mode =
 		browser && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -25,12 +40,120 @@
 		active = value;
 		open = false;
 	}
+
+	function logError(e: string) {
+		error = e;
+		snackbarError.open();
+		closed = true;
+	}
+
+	async function login() {
+		closed = false;
+		let response;
+		try {
+			const resp = await fetch('/api/auth/' + username + '/generate-auth-options');
+			// Throw if status is not 200 OK
+			response = await resp.json();
+			if (resp.status !== 200) {
+				throw new Error(response.error)
+			};
+		} catch (error) {
+			logError(error)
+			closed = true;
+			return;
+		}
+
+		let attResp;
+		try {
+			// Pass the options to the authenticator and wait for a response
+			attResp = await startAuthentication(response);
+		} catch (error) {
+			// Some basic error handling
+			logError(error)
+			closed = true;
+			return;
+		}
+
+		const verificationResp = await fetch('/api/auth/' + username + '/verify-authentication', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(attResp),
+		});
+
+		const verificationJSON = await verificationResp.json();
+
+		if (verificationJSON && verificationJSON.verified) {
+			// Refresh the page to sign in
+			window.location.reload();
+		} else {
+			logError(verificationJSON.error)
+		}
+	}
+
+	async function register() {
+		closed = false;
+		let response;
+		try {
+			const resp = await fetch('/api/auth/' + username + '/generate-registration-options');
+			// Throw if status is not 200 OK
+			response = await resp.json();
+			if (resp.status !== 200) {
+				throw new Error(response.error)
+			};
+		} catch (error) {
+			logError(error)
+			closed = true;
+			return;
+		}
+
+		let attResp;
+		try {
+			// Pass the options to the authenticator and wait for a response
+			attResp = await startRegistration(response);
+		} catch (error) {
+			// Some basic error handling
+			logError(error)
+			closed = true;
+			return;
+		}
+
+		const verificationResp = await fetch('/api/auth/' + username + '/verify-registration', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(attResp),
+		});
+
+		const verificationJSON = await verificationResp.json();
+
+		if (verificationJSON && verificationJSON.verified) {
+			// Refresh the page to sign in
+			window.location.reload();
+		} else {
+			logError(verificationJSON.error)
+		}
+	}
+
+	function signOut() {
+		fetch('/api/auth/logout').then(() => {
+			window.location.reload();
+		});
+	}
 </script>
 
 <svelte:head>
 	<link href={dark_mode ? '/smui-dark.css' : '/smui.css'} rel="stylesheet" />
 </svelte:head>
 
+<Snackbar bind:this={snackbarError} class="demo-error">
+	<SnackbarLabel>{error}</SnackbarLabel>
+	<Actions>
+		<IconButton class="material-icons" title="Dismiss">close</IconButton>
+	</Actions>
+</Snackbar>
 <Drawer bind:open fixed={false} variant="modal">
 	<Header>
 		<div class="drawer-container">
@@ -123,33 +246,40 @@
 							<IconButton
 								aria-label="Account"
 								class="material-icons"
-								on:click={() => ($page.data.session ? signOut() : signIn())}
+								on:click={() => (data.user ? signOut() : register())}
 								>person
 							</IconButton>
 						</Section>
 					</Row>
 				</TopAppBar>
-				{#if $page.data.session}
-					{#if allowed_name_list.includes($page.data.session.user.name)}
+				<LinearProgress clasee="main-bar" indeterminate {closed}/>
+				{#if data.user}
+					{#if allowed_name_list.includes(data.user.username)}
 						<div class="flexor-content">
 							<slot />
 						</div>
 					{:else}
 						<div class="login-prompt">
 							<Paper color="primary" variant="outlined">
-								<Title>{$page.data.session.user.name} you don't have early access permission.</Title
-								>
-								<Content>Please check back later.</Content>
+								<Title>No early access permission.</Title>
+								<Content>{data.user.username} Please check back later.</Content>
 							</Paper>
 						</div>
 					{/if}
 				{:else}
 					<div class="login-prompt">
 						<Paper color="primary" variant="outlined">
-							<Title>You are not logged in, please log in to continue</Title>
+							<Title>Login/Register to continue</Title>
 							<Content>
-								<Button on:click={() => signIn()}>
+								<div>
+									<Textfield bind:value={username} label="Username">
+									</Textfield>
+								</div>
+								<Button on:click={() => login()}>
 									<Label>Login</Label>
+								</Button>
+								<Button on:click={() => register()}>
+									<Label>Register</Label>
 								</Button>
 							</Content>
 						</Paper>

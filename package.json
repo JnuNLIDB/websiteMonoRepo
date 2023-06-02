@@ -29,9 +29,11 @@
 		"@smui/drawer": "7.0.0-beta.8",
 		"@smui/fab": "7.0.0-beta.8",
 		"@smui/icon-button": "^7.0.0-beta.8",
+		"@smui/linear-progress": "7.0.0-beta.8",
 		"@smui/list": "7.0.0-beta.8",
 		"@smui/paper": "7.0.0-beta.8",
 		"@smui/select": "7.0.0-beta.8",
+		"@smui/snackbar": "7.0.0-beta.8",
 		"@smui/textfield": "7.0.0-beta.8",
 		"@smui/top-app-bar": "^7.0.0-beta.8",
 		"@sveltejs/adapter-auto": "^2.0.0",
@@ -45,6 +47,7 @@
 		"eslint-plugin-svelte": "^2.26.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
+		"prisma": "^4.15.0",
 		"smui-theme": "7.0.0-beta.8",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
@@ -55,8 +58,9 @@
 		"vitest": "^0.25.3"
 	},
 	"dependencies": {
-		"@auth/core": "latest",
-		"@auth/sveltekit": "latest",
+		"@prisma/client": "4.15.0",
+		"@simplewebauthn/browser": "^7.2.0",
+		"@simplewebauthn/server": "^7.2.0",
 		"dotenv": "^16.0.3",
 		"js-sha256": "^0.9.0"
 	},
