@@ -1,7 +1,7 @@
 import { j as json } from './index-36410280.js';
 import { p as prisma } from './prisma-68db7c66.js';
 import { generateRegistrationOptions } from '@simplewebauthn/server';
-import { R as RPID } from './private-f3ca3244.js';
+import { R as RPID } from './private-0415313b.js';
 import '@prisma/client';
 
 const GET = async ({ params }) => {
@@ -54,4 +54,4 @@ const GET = async ({ params }) => {
 };
 
 export { GET };
-//# sourceMappingURL=_server.ts-f53f64a2.js.map
+//# sourceMappingURL=_server.ts-9b41cca6.js.map

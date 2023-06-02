@@ -1,0 +1,1 @@
+{"version":3,"file":"private-0415313b.js","sources":["../../../.svelte-kit/adapter-node/chunks/private.js"],"sourcesContent":["const RPID = \"www.mingyuaigc.com\";\nconst ORIGIN = \"https://www.mingyuaigc.com\";\nexport {\n  ORIGIN as O,\n  RPID as R\n};\n"],"names":[],"mappings":"AAAK,MAAC,IAAI,GAAG,qBAAqB;AAC7B,MAAC,MAAM,GAAG;;;;"}

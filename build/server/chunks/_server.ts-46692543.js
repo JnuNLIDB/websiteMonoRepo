@@ -1,7 +1,7 @@
 import { j as json } from './index-36410280.js';
 import { p as prisma } from './prisma-68db7c66.js';
 import { verifyRegistrationResponse } from '@simplewebauthn/server';
-import { O as ORIGIN, R as RPID } from './private-f3ca3244.js';
+import { O as ORIGIN, R as RPID } from './private-0415313b.js';
 import '@prisma/client';
 
 const POST = async ({ params, request, cookies }) => {
@@ -68,4 +68,4 @@ const POST = async ({ params, request, cookies }) => {
 };
 
 export { POST };
-//# sourceMappingURL=_server.ts-511fb179.js.map
+//# sourceMappingURL=_server.ts-46692543.js.map
