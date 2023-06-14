@@ -24,7 +24,7 @@
 
 	const allowed_name_list = [
 		"Fox_white", "Calsonlyn", "DUuOOO",
-		"Wang Tong", "Starscreamy", "superjamesgit"
+		"Wang Tong", "Starscreamy", "superjamesgit", "Kaicheng Lin"
 	]
 
 	let open = false;
