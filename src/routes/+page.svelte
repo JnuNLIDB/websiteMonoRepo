@@ -51,7 +51,7 @@
 		//   "llm": "openai"
 		// }
 		const time = new Date().getTime();
-		const api_key = $page.data.session.user.name;
+		// const api_key = $page.data.session.user.name;
 		fetch('/api/embedding', {
 			method: 'POST',
 			headers: {
@@ -61,7 +61,7 @@
 				question: qas[qas.length - 1].question,
 				llm: model,
 				now: time,
-				hash: sha256(api_key + time.toString())
+				// hash: sha256(api_key + time.toString())
 			})
 		})
 			.then((r) => r.json().then((data) => ({ status: r.status, body: data })))
