@@ -52,7 +52,7 @@
 		// }
 		const time = new Date().getTime();
 		const api_key = $page.data.session.user.name;
-		fetch('/api/nlidb', {
+		fetch('/api/embedding', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
