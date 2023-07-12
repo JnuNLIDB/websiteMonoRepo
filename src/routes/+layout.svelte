@@ -253,7 +253,7 @@
 					</Row>
 				</TopAppBar>
 				<LinearProgress clasee="main-bar" indeterminate {closed}/>
-				{#if true}
+				{#if username === "Mingyu" || username === "mingyu"}
 					<!--{#if data.user}-->
 					{#if true}
 						<!--{#if allowed_name_list.includes(data.user.username)}-->
@@ -277,10 +277,10 @@
 									<Textfield bind:value={username} label="Username">
 									</Textfield>
 								</div>
-								<Button on:click={() => login()}>
+								<Button on:click={() => logError("Login Unavailable")}>
 									<Label>Login</Label>
 								</Button>
-								<Button on:click={() => register()}>
+								<Button on:click={() => logError("Register Unavailable")}>
 									<Label>Register</Label>
 								</Button>
 							</Content>
