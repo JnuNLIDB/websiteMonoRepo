@@ -253,8 +253,10 @@
 					</Row>
 				</TopAppBar>
 				<LinearProgress clasee="main-bar" indeterminate {closed}/>
-				{#if data.user}
-					{#if allowed_name_list.includes(data.user.username)}
+				{#if true}
+					<!--{#if data.user}-->
+					{#if true}
+						<!--{#if allowed_name_list.includes(data.user.username)}-->
 						<div class="flexor-content">
 							<slot />
 						</div>
