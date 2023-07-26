@@ -1,12 +1,12 @@
 <script lang="ts">
-	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
-	import IconButton from '@smui/icon-button';
-	import List, { Graphic, Item, Separator, Subheader, Text } from '@smui/list';
-	import Drawer, { AppContent, Content, Header, Scrim, Subtitle } from '@smui/drawer';
-	import { browser } from '$app/environment';
-	import Paper from '@smui/paper';
-	import Button, { Label } from '@smui/button';
-	import type { LayoutData } from './$types'
+	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
+	import IconButton from "@smui/icon-button";
+	import List, { Graphic, Item, Separator, Subheader, Text } from "@smui/list";
+	import Drawer, { AppContent, Content, Header, Scrim, Subtitle } from "@smui/drawer";
+	import { browser } from "$app/environment";
+	import Paper from "@smui/paper";
+	import Button, { Label } from "@smui/button";
+	import type { LayoutData } from "./$types";
 	import { startAuthentication, startRegistration } from "@simplewebauthn/browser";
 	import Snackbar, {
 		Label as SnackbarLabel,
@@ -32,6 +32,8 @@
 	let error = ''
 	let closed = true;
 	let username = '';
+
+	let hashed = false;
 
 	let dark_mode =
 		browser && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -141,6 +143,23 @@
 		fetch('/api/auth/logout').then(() => {
 			window.location.reload();
 		});
+	}
+
+	async function hash(string) {
+		const utf8 = new TextEncoder().encode(string);
+		const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+		const hashArray = Array.from(new Uint8Array(hashBuffer));
+		return hashArray
+			.map((bytes) => bytes.toString(16).padStart(2, '0'))
+			.join('');
+	}
+
+	function hash_equals(string) {
+		if (string == "53875c6212475e9e88293c5c36a0a7dc8de8315b5479013b58f448e2e7f2fa7f") {
+			hashed = true;
+			return true;
+		}
+		return false;
 	}
 </script>
 
@@ -253,22 +272,7 @@
 					</Row>
 				</TopAppBar>
 				<LinearProgress clasee="main-bar" indeterminate {closed}/>
-				{#if username === "Mingyu" || username === "mingyu"}
-					<!--{#if data.user}-->
-					{#if true}
-						<!--{#if allowed_name_list.includes(data.user.username)}-->
-						<div class="flexor-content">
-							<slot />
-						</div>
-					{:else}
-						<div class="login-prompt">
-							<Paper color="primary" variant="outlined">
-								<Title>No early access permission.</Title>
-								<Content>{data.user.username} Please check back later.</Content>
-							</Paper>
-						</div>
-					{/if}
-				{:else}
+				{#if !hashed}
 					<div class="login-prompt">
 						<Paper color="primary" variant="outlined">
 							<Title>Login/Register to continue</Title>
@@ -287,6 +291,27 @@
 						</Paper>
 					</div>
 				{/if}
+
+				{#await hash(username)}
+					<div></div>
+				{:then number}
+					{#if hash_equals(number)} <!--{#if data.user}-->
+						{#if true} <!--{#if allowed_name_list.includes(data.user.username)}-->
+							<div class="flexor-content">
+								<slot />
+							</div>
+						{:else}
+							<div class="login-prompt">
+								<Paper color="primary" variant="outlined">
+									<Title>No early access permission.</Title>
+									<Content>{data.user.username} Please check back later.</Content>
+								</Paper>
+							</div>
+						{/if}
+					{/if}
+				{:catch error}
+					<p style="color: red">{error.message}</p>
+				{/await}
 			</div>
 		</div>
 	</main>
