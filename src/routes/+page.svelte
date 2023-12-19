@@ -19,8 +19,8 @@
 	let processing = false;
 	let qas: QAPair[] = [];
 	qas.push({
-		question: 'What is the meaning of life?',
-		answer: '42'
+		question: 'Who are you?',
+		answer: 'I am MingYu, an AI dialog program developed by the Global Public Opinion Monitoring Laboratory for China\'s SCS Peripheral Security at Jinan University.'
 	});
 
 	let value = '';
